@@ -173,10 +173,32 @@ void    Afficher_reservation()
     printf("réservation non trouvé");
 }
 
+int    indice_status(char statut[])
+{
+    if (strcmp(statut, "validé") == 0) 
+    {
+        return 1;
+    }
+    if (strcmp(statut, "reporté") == 0) 
+    {
+        return 2;
+    }
+    if (strcmp(statut, "annulé") == 0) 
+    {
+        return 3;
+    }
+    if (strcmp(statut, "traité") == 0) 
+    {
+        return 4;
+    }
+    return 5; // pour les statut inconnus
+}
+
 void    tri_reservation()
 {
     struct reservation temp;
     int option;
+    int choix;
     int jour1, mois1, anne1;
     int jour2, mois2, anne2;
     while(choix != 4)
@@ -205,26 +227,16 @@ void    tri_reservation()
                     }
                 }
             }
-            for (int i = 0; i < nb_reservation; i++)
-            {
-            printf("Réservation %d:\n", i + 1);
-            printf("Nom: %s\n", reservations[i].nom);
-            printf("Prénom: %s\n", reservations[i].prénom);
-            printf("Téléphone: %s\n", reservations[i].téléphone);
-            printf("Âge: %d\n", reservations[i].age);
-            printf("Statut: %s\n", reservations[i].statut);
-            printf("Référence: %d\n", reservations[i].référence);
-            printf("Date: %s\n\n", reservations[i].date);
-            }
             break;
-            printf("les réservations triées par date sont les suivantes: \n")
+            case 2:
+            printf("les réservations triées par date sont les suivantes: \n");
             for(int i =0; i < nb_reservation - 1; i++)
             {
                 for(int j = 0; j < nb_reservation -1 - i; j++)
                 {
                     sscanf(reservations[j].date, "%d-%d-%d", &jour1, &mois1, &anne1);
-                    sscanf(reservations[j].date, "%d-%d-%d", &jour2, &mois2, &anne2);
-                    if (year1 > year2 || (year1 == year2 && month1 > month2) || (year1 == year2 && month1 == month2 && day1 > day2))
+                    sscanf(reservations[j + 1].date, "%d-%d-%d", &jour2, &mois2, &anne2);
+                    if (anne1 > anne2 || (anne1 == anne2 && mois1 > mois2) || (anne1 == anne2 && mois1 == mois2 && jour1 > jour2))
                     {
                     temp = reservations[j];
                     reservations[j] = reservations[j + 1];
@@ -232,7 +244,28 @@ void    tri_reservation()
                     }
                 }
             }
-            for (int i = 0; i < nb_reservation; i++)
+            break;
+            case 3: 
+            printf("les réservations triées par statut sont les suivantes: ");
+              for(int i = 0; i < nb_reservation - 1; i++)
+            {
+                for(int j = 0; j < nb_reservation - 1 - i; j++)
+                {
+                    if(indice_status(reservations[j].statut) > indice_status(reservations[j + 1].statut))
+                    {
+                        temp = reservations[j];
+                        reservations[j] = reservations[j + 1];
+                        reservations[j + 1] = temp;
+                    }
+                }
+            }
+            break;
+            default:
+            printf("Option invalide, veuillez réessayer.\n\n");
+            continue; // Go back to the beginning of the loop
+        }
+        printf("Réservations triées:\n");
+        for (int i = 0; i < nb_reservation; i++)
             {
             printf("Réservation %d:\n", i + 1);
             printf("Nom: %s\n", reservations[i].nom);
@@ -242,18 +275,6 @@ void    tri_reservation()
             printf("Statut: %s\n", reservations[i].statut);
             printf("Référence: %d\n", reservations[i].référence);
             printf("Date: %s\n\n", reservations[i].date);
-            break;
-            case 2: 
-            printf("les réservations triées par date sont les suivantes: ");
-            break;
-            case 3: 
-            printf("les réservations triées par statut sont les suivantes: ");
-            break;
-            default:
-            printf("Option invalide, veuillez réessayer.\n\n");;
-            break;
-        }
-
-
+            }
     }
 }
