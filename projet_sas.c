@@ -284,6 +284,7 @@ void    recherche_reservation()
     int option;
     int i;
     char trouve_nom[50];
+    char date_recherche[11];
 
     i = 0;
     while(1)
@@ -302,6 +303,8 @@ void    recherche_reservation()
             Afficher_reservation();
             break;
             case 2:
+            printf("Tapez le nom pour afficher les informations de la réservation: ");
+            scanf("%s", trouve_nom);
             while(i < nb_reservation)
             {
                 if(strcmp(trouve_nom, reservations[i].nom) == 0)
@@ -314,10 +317,32 @@ void    recherche_reservation()
                     printf("statut: %s\n",reservations[i].statut);
                     printf("date: %s\n",reservations[i].date);    
                 }
+                i++;
             }
-
+            break;
+            case 3:
+            printf("Tapez la date (JJ-MM-AAAA) pour afficher les informations de la réservation: ");
+            scanf("%s", date_recherche);
+            for(int i = 0; i < nb_reservation; i++)
+            {
+                if(strcmp(date_recherche, reservations[i].date) == 0)
+                {
+                    printf("les informations de reservation de la date %s  sont les suivantes: \n", date_recherche);
+                    printf("Nom: %s\n",reservations[i].nom);
+                    printf("Prénom: %s\n",reservations[i].prénom);
+                    printf("téléphone: %s\n",reservations[i].téléphone);
+                    printf("age: %d\n",reservations[i].age);
+                    printf("statut: %s\n",reservations[i].statut);
+                    printf("date: %s\n",reservations[i].date);
+                     
+                }
+            }
+            break;
+            case 4:
+            return;
+            default:
+            printf("Option invalide, veuillez réessayer.\n");
+            break;
         }
     } 
-
-
 }
