@@ -441,7 +441,7 @@ void    statistique_reservation()
 }
 void initialiserReservations()
 {
-    struct reservation default_reservations[10] = 
+    struct reservation fake_data[10] = 
     {
         {"Haddad", "Samira", "0123456789", 30, "validé", 1, "01-01-2024"},
         {"Khaled", "Omar", "0123456790", 25, "annulé", 2, "02-01-2024"},
@@ -456,7 +456,7 @@ void initialiserReservations()
     };
     for (int i = 0; i < 10; i++) 
     {
-        reservations[i] = default_reservations[i];
+        reservations[i] = fake_data[i];
         nb_reservation++;
     }
 }
@@ -465,7 +465,7 @@ int main()
     int choix;
 
     // Initialize default reservations
-    initialiserReservations();
+    fake_data();
 
     do {
         printf("\n--- Menu Principal ---\n");
@@ -493,7 +493,7 @@ int main()
                 Afficher_reservation();
                 break;
             case 5:
-                tri_reservation()
+                tri_reservation();
                 break;
             case 6:
                 recherche_reservation();
@@ -506,6 +506,5 @@ int main()
                 break;
         }
     } while (choix != 7);
-
     return 0;
 }
