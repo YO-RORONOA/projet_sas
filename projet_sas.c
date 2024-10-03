@@ -52,26 +52,23 @@ void    supprimer_reservation()
     i =0;
     printf("\ntapez la reference unique pour supprimer une reservation: ");
     scanf("%d", &ref_supprimer);
-    while(i < nb_reservation)
+    for (i = 0; i < nb_reservation; i++)
     {
-        if(ref_supprimer == reservations[i].reference)
+        if (ref_supprimer == reservations[i].reference)
         {
-            j = i;
-            while(j < nb_reservation - 1) //- 1 pour nous assurer que nous ne sortons pas des limites
+            // Shift all following reservations one position to the left
+            for (int j = i; j < nb_reservation - 1; j++)
             {
-                strcpy(reservations[j].nom, reservations[j + 1].nom);
-                strcpy(reservations[j].prenom, reservations[j + 1].prenom);
-                strcpy(reservations[j].telephone, reservations[j + 1].telephone);
-                strcpy(reservations[j].statut, reservations[j + 1].statut);
-                strcpy(reservations[j].date, reservations[j + 1].date);
-                reservations[j].age = reservations[j + 1].age;
-                reservations[j].reference = reservations[j + 1].reference;
+                reservations[j] = reservations[j + 1]; // Copy the whole structure
             }
-            nb_reservation--;
-            printf("l'operation de suppression a reussi\n");
-            return;
+            nb_reservation--; // Decrement the number of reservations
+            printf("L'opération de suppression a réussi.\n");
+             for (int k = 0; k < nb_reservation; k++)
+            {
+                reservations[k].reference = k + 1; // Reassign references
+            }
+            return; // Exit the function after deletion
         }
-        i++;
     }
     printf("reservation non trouvee\n");
 
