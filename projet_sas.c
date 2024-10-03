@@ -346,3 +346,85 @@ void    recherche_reservation()
         }
     } 
 }
+
+void    statistique_reservation()
+{
+    int option;
+    int i;
+    int nb_validé;
+    int nb_annulé;
+    int nb_reporté;
+    int nb_traité;
+    int result;
+    int moyen;
+    int age18;
+    int age35;
+    int age36;
+
+
+    nb_validé= 0;
+    nb_annulé = 0;
+    nb_reporté = 0;
+    nb_traité = 0;
+    age18 = 0;
+    age35 = 0;
+    age36 = 0;
+    while(1)
+    {
+        printf("\nchoisissez parmi les options ci-dessous les statistiques que vous souhaitez générer: \n");
+        printf("choix 1: la moyenne d'âge des patients ayant réservé.\n");
+        printf("choix 2: le nombre de patients par tranche d'âge (0-18 ans, 19-35 ans, 36+ ans).\n");
+        printf("choix 3:  le nombre total de réservations par statut\n");
+        printf("choix 4: quitter\n");
+        printf("votre option: ");
+        scanf("%d", &option);
+
+        switch (option)
+        {
+            case 1:
+            for(i = 0; i < nb_reservation - 1; i++)
+            {
+                result += reservations[i].age;
+            }
+            printf("la moyenne d'âge des patients ayant réservé est %d anné.\n", result / nb_reservation);
+            break;
+            case 2:
+            if( age18 reservations[i].statut) == 0)
+                {
+                    nb_validé++;
+                }
+
+
+            case 3:
+            for(i = 0; i < nb_reservation - 1; i++)
+            {
+                if(strcmp("validé", reservations[i].statut) == 0)
+                {
+                    nb_validé++;
+                }
+                else if(strcmp("annulé", reservations[i].statut) == 0)
+                {
+                    nb_annulé++;
+                }
+                else if(strcmp("reporté", reservations[i].statut) == 0)
+                {
+                    nb_reporté++;
+                }
+                else if(strcmp("traité", reservations[i].statut) == 0)
+                {
+                    nb_traité++;
+                }
+            }
+            printf("les patients ayant réservé par leur statut sont les suivants: \n",);
+            printf("nb reservation validé: %d\n", nb_validé);
+            printf("nb reservation annulé: %d\n", nb_annulé);
+            printf("nb reservation reporté: %d\n", nb_reporté);
+            printf("nb reservation traité: %d\n", nb_traité);
+            break;
+
+
+
+
+        }
+    }
+}
