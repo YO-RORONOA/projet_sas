@@ -278,3 +278,46 @@ void    tri_reservation()
             }
     }
 }
+
+void    recherche_reservation()
+{
+    int option;
+    int i;
+    char trouve_nom[50];
+
+    i = 0;
+    while(1)
+    {
+        printf("choisissez parmi les options ci-dessous comment vous souhaitez rechercher des réservations: \n");
+        printf("choix 1: rechercher des réservations par référence\n");
+        printf("choix 2: rechercher des réservations par nom\n");
+        printf("choix 3: rechercher des réservations par date\n");
+        printf("choix 4: quitter\n");
+        printf("votre option: ");
+        scanf("%d", &option);
+
+        switch(option)
+        {
+            case 1:
+            Afficher_reservation();
+            break;
+            case 2:
+            while(i < nb_reservation)
+            {
+                if(strcmp(trouve_nom, reservations[i].nom) == 0)
+                {
+                    printf("les informations de %s sont les suivantes: \n", trouve_nom);
+                    printf("Nom: %s\n",reservations[i].nom);
+                    printf("Prénom: %s\n",reservations[i].prénom);
+                    printf("téléphone: %s\n",reservations[i].téléphone);
+                    printf("age: %d\n",reservations[i].age);
+                    printf("statut: %s\n",reservations[i].statut);
+                    printf("date: %s\n",reservations[i].date);    
+                }
+            }
+
+        }
+    } 
+
+
+}
