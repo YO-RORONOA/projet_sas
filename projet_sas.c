@@ -361,7 +361,6 @@ void    statistique_reservation()
     int age35;
     int age36;
 
-
     nb_validé= 0;
     nb_annulé = 0;
     nb_reporté = 0;
@@ -374,7 +373,7 @@ void    statistique_reservation()
         printf("\nchoisissez parmi les options ci-dessous les statistiques que vous souhaitez générer: \n");
         printf("choix 1: la moyenne d'âge des patients ayant réservé.\n");
         printf("choix 2: le nombre de patients par tranche d'âge (0-18 ans, 19-35 ans, 36+ ans).\n");
-        printf("choix 3:  le nombre total de réservations par statut\n");
+        printf("choix 3: le nombre total de réservations par statut\n");
         printf("choix 4: quitter\n");
         printf("votre option: ");
         scanf("%d", &option);
@@ -389,12 +388,28 @@ void    statistique_reservation()
             printf("la moyenne d'âge des patients ayant réservé est %d anné.\n", result / nb_reservation);
             break;
             case 2:
-            if( age18 reservations[i].statut) == 0)
-                {
-                    nb_validé++;
-                }
-
-
+            for(i = 0; i < nb_reservation - 1; i++)
+            {
+                if (reservations[i].age <= 18)
+                    {
+                        age18++;
+                    }
+                else if (reservations[i].age <= 35 && reservations[i].age >= 19)
+                    {
+                    age35++;
+                    }
+                else if (reservations[i].age >= 36)
+                    {
+                    age36++;
+                    }
+            }
+            printf("\nle nombre total de réservations par statut sont les suivants: \n");
+            {
+                printf("le nombre de patients par tranche d'âge[0-18]= %d\n", age18);
+                printf("le nombre de patients par tranche d'âge[18-35]= %d\n", age18);
+                printf("le nombre de patients par tranche d'âge[35+]= %d\n", age18);
+            }
+            break;
             case 3:
             for(i = 0; i < nb_reservation - 1; i++)
             {
@@ -415,16 +430,82 @@ void    statistique_reservation()
                     nb_traité++;
                 }
             }
-            printf("les patients ayant réservé par leur statut sont les suivants: \n",);
+            printf("les patients ayant réservé par leur statut sont les suivants: \n");
             printf("nb reservation validé: %d\n", nb_validé);
             printf("nb reservation annulé: %d\n", nb_annulé);
             printf("nb reservation reporté: %d\n", nb_reporté);
             printf("nb reservation traité: %d\n", nb_traité);
             break;
-
-
-
-
         }
     }
+}
+void initialiserReservations()
+{
+    struct reservation default_reservations[10] = 
+    {
+        {"Haddad", "Samira", "0123456789", 30, "validé", 1, "01-01-2024"},
+        {"Khaled", "Omar", "0123456790", 25, "annulé", 2, "02-01-2024"},
+        {"Benali", "Amina", "0123456791", 40, "reporté", 3, "03-01-2024"},
+        {"Farhat", "Layla", "0123456792", 22, "traité", 4, "04-01-2024"},
+        {"Mansour", "Youssef", "0123456793", 33, "validé", 5, "05-01-2024"},
+        {"El Amrani", "Fatima", "0123456794", 45, "annulé", 6, "06-01-2024"},
+        {"Abdallah", "Nadia", "0123456795", 28, "reporté", 7, "07-01-2024"},
+        {"Bouaziz", "Karim", "0123456796", 31, "traité", 8, "08-01-2024"},
+        {"Cherif", "Zahra", "0123456797", 29, "validé", 9, "09-01-2024"},
+        {"Saad", "Rami", "0123456798", 50, "annulé", 10, "10-01-2024"}
+    };
+    for (int i = 0; i < 10; i++) 
+    {
+        reservations[i] = default_reservations[i];
+        nb_reservation++;
+    }
+}
+int main() 
+{
+    int choix;
+
+    // Initialize default reservations
+    initialiserReservations();
+
+    do {
+        printf("\n--- Menu Principal ---\n");
+        printf("1. Ajouter une réservation\n");
+        printf("2. supprimer une réservation\n");
+        printf("3. Modifier une réservation\n");
+        printf("4. Afficher une réservation\n");
+        printf("5. Trier les réservations par nom\n");
+        printf("6. recherche reservation\n");
+        printf("7. Quitter\n");
+        printf("Entrez votre choix: ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1:
+                ajouterReservation();
+                break;
+            case 2:
+                supprimer_reservation();
+                break;
+            case 3:
+                modifier_reservation();
+                break;
+            case 4:
+                Afficher_reservation();
+                break;
+            case 5:
+                tri_reservation()
+                break;
+            case 6:
+                recherche_reservation();
+                break;
+            case 7:
+                printf("Au revoir!\n");
+                break;
+            default:
+                printf("Choix invalide, veuillez réessayer.\n");
+                break;
+        }
+    } while (choix != 7);
+
+    return 0;
 }
