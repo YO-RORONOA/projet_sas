@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#define reservation_max 100 //les tableaux declares au niveau du fichier (portee globale) doivent avoir
+#define reservation_max 100 // Preprocessor Directives pour defenir une constant. les tableaux declares au niveau du fichier (portee globale) doivent avoir
                             // une taille constante connue au moment de la compilation
 int nb_reservation = 0;  //track nombre de reservation.
 
@@ -33,7 +33,7 @@ void    ajouterReservation()
     printf("\ntapez le Statut(valide, reporte, annule, traite): ");
     scanf("%s", reservations[nb_reservation].statut);
     printf("\ntapez la Date (JJ-MM-AAAA): ");
-    scanf("%s", &reservations[nb_reservation].date);
+    scanf("%s", reservations[nb_reservation].date);
 
     reservations[nb_reservation].reference = nb_reservation + 1;
     nb_reservation++;
@@ -46,7 +46,6 @@ void    ajouterReservation()
 void    supprimer_reservation()
 {
     int i;
-    int j;
     int ref_supprimer;
 
     i =0;
@@ -62,7 +61,7 @@ void    supprimer_reservation()
                 reservations[j] = reservations[j + 1]; // Copy the whole structure
             }
             nb_reservation--; // Decrement the number of reservations
-            printf("L'opération de suppression a réussi.\n");
+            printf("L'operation de suppression a reussi.\n");
              for (int k = 0; k < nb_reservation; k++)
             {
                 reservations[k].reference = k + 1; // Reassign references
@@ -356,7 +355,6 @@ void    statistique_reservation()
     int nb_reporte;
     int nb_traite;
     int result;
-    int moyen;
     int age18;
     int age35;
     int age36;
@@ -386,7 +384,7 @@ void    statistique_reservation()
             {
                 result += reservations[i].age;
             }
-            printf("la moyenne d'age des patients ayant reserve est %d anne.\n", result / nb_reservation);
+            printf("la moyenne d'age des patients ayant reserve est %d annee.\n", result / nb_reservation);
             break;
             case 2:
             for(i = 0; i < nb_reservation; i++)
@@ -432,10 +430,10 @@ void    statistique_reservation()
                 }
             }
             printf("les patients ayant reserve par leur statut sont les suivants: \n");
-            printf("nb reservation valide: %d\n", nb_valide);
-            printf("nb reservation annule: %d\n", nb_annule);
-            printf("nb reservation reporte: %d\n", nb_reporte);
-            printf("nb reservation traite: %d\n", nb_traite);
+            printf("nombre de reservation valide: %d\n", nb_valide);
+            printf("nombre reservation annule: %d\n", nb_annule);
+            printf("nombre reservation reporte: %d\n", nb_reporte);
+            printf("nombre reservation traite: %d\n", nb_traite);
             break;
             case 4:
             printf("Quitter les statistiques.\n");
@@ -479,7 +477,8 @@ int main()
         printf("4. Afficher une reservation\n");
         printf("5. Trier les reservations\n");
         printf("6. recherche reservation\n");
-        printf("7. Quitter\n");
+        printf("7. statistiques des reservation\n");
+        printf("8. Quitter\n");
         printf("Entrez votre choix: ");
         scanf("%d", &choix);
 
@@ -503,12 +502,15 @@ int main()
                 recherche_reservation();
                 break;
             case 7:
+            statistique_reservation();
+            break;
+            case 8:
                 printf("Au revoir!\n");
                 break;
             default:
                 printf("Choix invalide, veuillez reessayer.\n");
                 break;
         }
-    } while (choix != 7);
+    } while (choix != 8);
     return 0;
 }
