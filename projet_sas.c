@@ -30,7 +30,7 @@ void    ajouterReservation()
     scanf("%s", reservations[nb_reservation].telephone);
     printf("\ntapez l'age: ");
     scanf("%d", &reservations[nb_reservation].age);
-    printf("\ntapez le Statut: ");
+    printf("\ntapez le Statut(valide, reporte, annule, traite): ");
     scanf("%s", reservations[nb_reservation].statut);
     printf("\ntapez la Date (JJ-MM-AAAA): ");
     scanf("%s", &reservations[nb_reservation].date);
@@ -314,6 +314,7 @@ void    recherche_reservation()
                     printf("prenom: %s\n",reservations[i].prenom);
                     printf("telephone: %s\n",reservations[i].telephone);
                     printf("age: %d\n",reservations[i].age);
+                    printf("reference: %d\n",reservations[i].reference);
                     printf("statut: %s\n",reservations[i].statut);
                     printf("date: %s\n",reservations[i].date);
                 }
