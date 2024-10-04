@@ -55,18 +55,18 @@ void    supprimer_reservation()
     {
         if (ref_supprimer == reservations[i].reference)
         {
-            // Shift all following reservations one position to the left
+            // Décaler toutes les réservations suivantes d'une position vers la gauche
             for (int j = i; j < nb_reservation - 1; j++)
             {
-                reservations[j] = reservations[j + 1]; // Copy the whole structure
+                reservations[j] = reservations[j + 1]; // Copier toute la structure
             }
-            nb_reservation--; // Decrement the number of reservations
+            nb_reservation--; // Diminuer le nombre de réservations d'une unité
             printf("L'operation de suppression a reussi.\n");
              for (int k = 0; k < nb_reservation; k++)
             {
-                reservations[k].reference = k + 1; // Reassign references
-            }
-            return; // Exit the function after deletion
+                reservations[k].reference = k + 1; // Réaffecter les références, pour éviter une erreur où si nous ajoutons une autre 
+            }                                       // réservation, la nouvelle et la dernière ont le même numéro de référence
+            return; 
         }
     }
     printf("reservation non trouvee\n");
@@ -123,7 +123,7 @@ void    modifier_reservation()
                 printf("age change avec succes\n\n");
                 break;
                 case 5:
-                printf("tapez le nouveau statut: ");
+                printf("tapez le nouveau statut(valide, reporte, annule, traite): ");
                 scanf("%s", reservations[i].statut);
                 printf("statut change avec succes\n\n");
                 break;
@@ -169,8 +169,8 @@ void    Afficher_reservation()
     printf("reservation non trouve");
 }
 
-int    indice_status(char statut[])
-{
+int    indice_status(char statut[])       //fonction permettant de remettre un numéro à un statut
+{                                         //par priorité pour les trier ultérieurement par un tri à bulles
     if (strcmp(statut, "valide") == 0)
     {
         return 1;
@@ -197,6 +197,8 @@ void    tri_reservation()
     int choix;
     int jour1, mois1, anne1;
     int jour2, mois2, anne2;
+
+    choix = 0;
     while(choix != 4)
     {
         printf("choisissez parmi les options ci-dessous comment vous souhaitez triez les reservation: \n");
@@ -215,8 +217,8 @@ void    tri_reservation()
             {
                 for(int j = 0; j < nb_reservation -1 - i; j++)
                 {
-                    if(strcmp(reservations[j].nom, reservations[j + 1].nom) > 0)
-                    {
+                    if(strcmp(reservations[j].nom, reservations[j + 1].nom) > 0) //utilisation de strcmp pour trouver la différence entre les chaînes
+                    {                                                               //et utilisation du tri à bulles pour trier
                         temp = reservations[j];
                         reservations[j] = reservations[j + 1];
                         reservations[j + 1] = temp;
@@ -226,8 +228,8 @@ void    tri_reservation()
             break;
             case 2:
             printf("les reservations triees par date sont les suivantes: \n");
-            for(int i =0; i < nb_reservation - 1; i++)
-            {
+            for(int i =0; i < nb_reservation - 1; i++)                 //utilisation de foncion sscanf pour lire une chaîne et convertir
+            {                                                          //les valeurs de date en entier à des fins de comparaison
                 for(int j = 0; j < nb_reservation -1 - i; j++)
                 {
                     sscanf(reservations[j].date, "%d-%d-%d", &jour1, &mois1, &anne1);
@@ -244,7 +246,8 @@ void    tri_reservation()
             case 3:
             printf("les reservations triees par statut sont les suivantes: ");
               for(int i = 0; i < nb_reservation - 1; i++)
-                {
+                {                                                               //utilisation de strcmp pour trouver la différence entre les chaînes
+                    {                                                               //et utilisation du tri à bulles pour trier
                 for(int j = 0; j < nb_reservation - 1 - i; j++)
                     {
                     if(indice_status(reservations[j].statut) > indice_status(reservations[j + 1].statut))
@@ -254,6 +257,7 @@ void    tri_reservation()
                         reservations[j + 1] = temp;
                     }
                     }
+                    }
                 }
             break;
             case 4:
@@ -261,10 +265,10 @@ void    tri_reservation()
             return;
             default:
             printf("Option invalide, veuillez reessayer.\n\n");
-            continue; // Go back to the beginning of the loop
+            continue; // Revenir au début de la boucle
         }
-        printf("Reservations triees:\n");
-        for (int i = 0; i < nb_reservation; i++)
+        printf("Reservations triees:\n");     //pour ne pas écrire de manière redondante l'impression après
+        for (int i = 0; i < nb_reservation; i++)  //chaque cas, elle a été déplacée après l'instruction switch,
             {
             printf("Reservation %d:\n", i + 1);
             printf("Nom: %s\n", reservations[i].nom);
@@ -299,7 +303,7 @@ void    recherche_reservation()
         switch(option)
         {
             case 1:
-            Afficher_reservation();
+            Afficher_reservation(); // on apple la fonction car il a la meme role. 
             break;
             case 2:
             printf("Tapez le nom pour afficher les informations de la reservation: ");
@@ -350,7 +354,7 @@ void    statistique_reservation()
 {
     int option;
     int i;
-    int nb_valide;
+    int nb_valide;  //variables qui fonctionnent comme des compteurs
     int nb_annule;
     int nb_reporte;
     int nb_traite;
@@ -361,8 +365,8 @@ void    statistique_reservation()
 
     while(1)
     {
-        nb_valide= 0;
-        nb_annule = 0;
+        nb_valide= 0;  //initialisation dans la boucle pour rentialiser
+        nb_annule = 0; //les valeur a zero chaque boucle
         nb_reporte = 0;
         nb_traite = 0;
         result = 0;
@@ -441,7 +445,7 @@ void    statistique_reservation()
         }
     }
 }
-void initialiserReservations()
+void fake_data()
 {
     struct reservation fake_data[10] =
     {
@@ -467,7 +471,7 @@ int main()
     int choix;
 
     // Initialize default reservations
-    initialiserReservations();
+    fake_data();
 
     do {
         printf("\n--- Menu Principal ---\n");
